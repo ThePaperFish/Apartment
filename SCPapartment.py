@@ -1,4 +1,5 @@
 import os
+import time
 from datetime import datetime
 
 def banner(Type,Data =""):
@@ -38,6 +39,22 @@ def banner(Type,Data =""):
     if Type == "welcome":
         print ("Welcome",Data, "!")
 
+    if Type == 'payment':
+        print('\t-- Payment --',end = '\n\n')
+        print('Please bank in to: ',end = '\n\n')
+        print('''\tASIA PACIFIC UNIVERSITY SDN BHD
+\tAPU Foundation, APU Diploma, APU/SU
+\tDegrees and APU Engineering Degrees
+\tA/C Name : ASIA PACIFIC UNIVERSITY SDN BHD
+\tRM Account No : 514413500658
+\tBANK ADDRESS
+\tMALAYAN BANKING BERHAD
+\tLot No. G-1 & G-2, Ground Floor
+\tSupport Service Building,
+\tTechnology Park Malaysia,
+\tLebuhraya Puchong-Sg. Besi, Bukit Jalil,
+\t57000 Kuala Lumpur, Malaysia''')
+    
     print()
 
 def menu():
@@ -67,20 +84,39 @@ def menu():
         if "help" in M_option:
             banner(4)
         
-def U_login(username,password ):
+def U_login(username,password,times = 0):
+
+
+    times += 1 
     if username == "" or password == "" :
 
         print("Please enter a vaild username or/ password")
         print()
-        username = input("Please enter your username  : ")
-        password = input("Please enter your password  : ")
-        print()
-        
-        U_login(username,password)
-        
+        if times < 5 : 
+            username = input("Please enter your username  : ")
+            password = input("Please enter your password  : ")
+            print()
             
-    if username == "1" and password == "1" :
+            U_login(username,password,times)
+        else:
+            menu()
+
+    if username in [n for n,num in name.items()] and password[name[username]] == password :
         U_menu(username)
+
+    else:
+        print("Please enter a vaild username or/ password")
+        print()
+        if times < 5 : 
+            username = input("Please enter your username  : ")
+            password = input("Please enter your password  : ")
+            print()
+            
+            U_login(username,password,times)
+        else:
+            menu()        
+        
+        U_login(username,password,times)
 
 
 def U_menu(username):
@@ -142,14 +178,13 @@ def Bk_menu(process,username):
         Bk_menu(3,username)
 
     if process == 3:
-        M_option = input("Skip? (Y/N)").lower()
-        if M_option == "y":
-            Bk_menu(4,username)
-        else:
-            print("NANI!!!")
+        banner('start')
+        banner('payment')
+        input('Enter any key to continue...')
+        Bk_menu(4,username)
 
     if process == 4:
-        print()
+        print('You are finished! Here is your room\'s detail.')
             
 def R_check(number):
     
@@ -160,4 +195,8 @@ def R_check(number):
 
 
 clear = lambda: os.system('cls')
+name = {'benny':1,'chong':2,'yolo':3, 'admin':0}
+password = ['1', 'nani','kao']
+P_info =[['','','','','','','','','1'],['','','','','','','','','2']]
+R_info = [[1,-2],[2,432]]
 menu()
